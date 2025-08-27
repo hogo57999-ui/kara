@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kara 3D</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="grid"></div>
+  </div>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Login</h1>
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="Email" required>
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <button class="btn-3d" type="submit">Login</button>
+        <p id="msg"></p>
+        <p style="margin-top:8px;color:var(--muted)">Don't have an account yet? <a href="register.html" style="color:var(--accent)">Sign up</a></p>
+      </form></a></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const msgLogin = document.getElementById("msg");
+
+    loginForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      const found = users.find(u => u.email===email && u.password===password);
+
+      if(found){
+        localStorage.setItem("currentUser", JSON.stringify(found));
+        window.location.href = "welcome.html";
+      } else {
+        msgLogin.textContent = "❌ Invalid email or password";
+        msgLogin.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>
+
+
